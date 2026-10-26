@@ -286,50 +286,6 @@ export function createLateRollcallAngryTeacherSituation(day: number): StoryEvent
   };
 }
 
-export function createGroomingInspection2030Situation(day: number): StoryEvent {
-  return {
-    id: `d${day}_2030_kiem_tra_tac_phong`,
-    day,
-    phase: 'evening',
-    phaseLabel: 'Tối',
-    category: 'Lịch trình 20:30',
-    topic: 'evening_rollcall_check',
-    title: `20:30 - Kiểm tra đột xuất tác phong quân phục, râu tóc và móng tay`,
-    narrative: `Trong giờ sinh hoạt đại đội 20:30, cán bộ bất ngờ lệnh cho các tiểu đội trưởng đi từng hàng rà soát tác phong: kiểm tra xem ai chưa bấm móng tay, tóc tai dài chạm vành tai, hoặc mang dép lê xuống sân điểm danh.`,
-    speaker: {
-      name: 'Đại đội phó',
-      role: 'Cán bộ kiểm tra tác phong',
-      avatarId: 'commander',
-      mood: 'stern',
-    },
-    dialogue: 'Tất cả đưa hai bàn tay ra trước ngực! Quân phục cài đủ cúc cổ, đi giày có buộc dây! Ai để móng tay dài hoặc tóc tốt bước lên hàng đầu!',
-    backgroundType: 'parade',
-    isFixedSchedule: true,
-    fixedTimeText: '20:30 - Sinh hoạt đại đội',
-    choices: [
-      {
-        id: `d${day}_kttp_c1`,
-        text: 'Tự tin xòe hai bàn tay sạch sẽ đã cắt tỉa gọn gàng, quân phục chỉnh tề tăm tắp',
-        attributeEffects: { health: 0, morale: 5, reputation: 8, money: 0 },
-        tipRewardId: 'tip_sinh_hoat_dai_doi_nghiem_tuc',
-        outcomeText: 'Tác phong chỉn chu mẫu mực giúp bạn được cán bộ kiểm tra chấm điểm A cộng thi đua cho cả phòng 14 người!',
-      },
-      {
-        id: `d${day}_kttp_c2`,
-        text: 'Thò tay vào túi áo lục tìm bấm móng tay định cúi đầu bấm lén trong bóng tối',
-        attributeEffects: { health: 0, morale: -5, reputation: -8, money: 0 },
-        outcomeText: 'Hành động lén lút bị đại đội phó phát hiện ngay lập tức, bị nhắc nhở nghiêm khắc tác phong đối phó trước hàng quân!',
-      },
-      {
-        id: `d${day}_kttp_c3`,
-        text: 'Đứng nghiêm báo cáo trung thực nếu chưa kịp cắt móng tay và hứa mượn bấm móng tay cắt ngay sau giờ sinh hoạt',
-        attributeEffects: { health: 0, morale: 3, reputation: 5, money: 0 },
-        outcomeText: 'Thái độ thẳng thắn, thành khẩn nhận lỗi được cán bộ đánh giá cao, nhắc nhở phòng 14 người đôn đốc hỗ trợ nhau.',
-      },
-    ],
-  };
-}
-
 export function createCommendationAndNightGuardSituation(day: number): StoryEvent {
   return {
     id: `d${day}_2030_bieu_duong_va_gac_dem`,
@@ -467,9 +423,6 @@ export function createFixedEveningRollcall(day: number): StoryEvent {
   if (day === 2 || day === 3) {
     // Tình huống yêu cầu: Tập trung muộn, Thầy cáu và mắng gay gắt
     return createLateRollcallAngryTeacherSituation(day);
-  } else if (day === 4) {
-    // Kiểm tra đột xuất móng tay, râu tóc, tác phong
-    return createGroomingInspection2030Situation(day);
   } else if (day === 5) {
     // Biểu dương và phân công ca gác đặc biệt 02:00 sáng
     return createCommendationAndNightGuardSituation(day);
@@ -477,7 +430,7 @@ export function createFixedEveningRollcall(day: number): StoryEvent {
     // Giao lưu tâm sự tân binh đêm cuối tuần
     return createHeartToHeartSharingSituation(day);
   }
-  // Mặc định Ngày 1 hoặc các ngày khác: Điểm danh chuẩn mực
+  // Mặc định Ngày 1, Ngày 4, Ngày 6 hoặc các ngày khác: Điểm danh chuẩn mực
   return createStandardRollcallSituation(day);
 }
 
@@ -2385,7 +2338,7 @@ export const AFTERNOON_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'a_tnb_c3',
-        text: 'Kê thêm chiếc khăn bông SJC dưới cùi chỏ tay trái đỡ đau rát khi tì đè trên sỏi đá thao trường',
+        text: 'Kê thêm chiếc khăn dưới cùi chỏ tay trái đỡ đau rát khi tì đè trên sỏi đá thao trường',
         attributeEffects: { health: 2, morale: 7, reputation: 7, money: 0 },
         tipRewardId: 'tip_danh_dau_quan_phuc',
         outcomeText: 'Sáng kiến giữ cùi chỏ êm ái giúp bạn duy trì tư thế nằm bắn vững chãi suốt 45 phút thực hành!',
@@ -2424,10 +2377,49 @@ export const AFTERNOON_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'a_vkd_c3',
-        text: 'Cùng các bạn trong phòng mở hé cửa sổ hai đầu tạo luồng gió đối lưu mát rượi tự nhiên cho cả phòng',
+        text: 'Cùng các bạn trong phòng mở hé cửa sổ hai đầu tạo luồng gió mát rượi tự nhiên cho cả phòng',
         attributeEffects: { health: 4, morale: 8, reputation: 8, money: 0 },
         tipRewardId: 'tip_thong_nhat_quy_uoc_phong',
-        outcomeText: 'Căn phòng mát rượi hương thông rừng, cả 14 thành viên đều có giấc ngủ trưa thật ngon lành!',
+        outcomeText: 'Căn phòng mát rượi, cả 14 thành viên đều có giấc ngủ trưa thật ngon lành!',
+      },
+    ],
+  },
+  {
+    id: 'a_cang_tin_17h00_tan_hoc',
+    phase: 'afternoon',
+    phaseLabel: 'Chiều',
+    category: 'Ăn uống & Sinh hoạt',
+    topic: 'afternoon_canteen_17h',
+    title: '[CHIỀU] 17:00 Tan học ghé quầy tạp hóa căng-tin mua đồ ăn vặt & nước giải khát',
+    narrative: '17:00 chiều, hồi còi tan học vang lên kết thúc buổi huấn luyện thao trường căng thẳng. Trước khi về phòng tắm giặt và chuẩn bị ăn cơm tối, cả nhóm rủ nhau ghé qua quầy tạp hóa căng-tin mua vài que kem mát lạnh, bim bim, mì ly đóng hộp và nước khoáng ướp lạnh để nạp lại năng lượng.',
+    speaker: {
+      name: 'Linh',
+      role: 'Bạn thân',
+      avatarId: 'linh',
+      mood: 'smile',
+    },
+    dialogue: 'Tập cả buổi chiều mệt và đói quá rồi! Tranh thủ ghé căng-tin làm que kem với chai nước mát lạnh rồi về phòng tắm giặt cậu ơi!',
+    backgroundType: 'canteen',
+    choices: [
+      {
+        id: 'a_ct5h_c1',
+        text: 'Mua một que kem mát lạnh cùng chai nước trà xanh ướp lạnh, ngồi ghế đá hóng gió chiều thư giãn',
+        attributeEffects: { health: 2, morale: 10, reputation: 8, money: -20000 },
+        tipRewardId: 'tip_giu_vung_tinh_than_lac_quan',
+        outcomeText: 'Khoảnh khắc thảnh thơi sau giờ thao trường, nạp đầy năng lượng tinh thần chuẩn bị cho bữa cơm chiều cùng đồng đội.',
+      },
+      {
+        id: 'a_ct5h_c2',
+        text: 'Mải ngồi ăn vặt buôn chuyện quên giờ giấc, sát 17:45 mới cuống cuồng chạy về phòng đi ăn.',
+        attributeEffects: { health: -1, morale: -4, reputation: -6, money: -20000 },
+        outcomeText: 'Về muộn bị mắng vì tác phong chậm chạp.',
+      },
+      {
+        id: 'a_ct5h_c3',
+        text: 'Mua thêm vài que kem, xúc xích tiệt trùng và sữa hộp mang về phòng tiếp tế cho các bạn trực nhật',
+        attributeEffects: { health: 1, morale: 9, reputation: 11, money: -30000 },
+        tipRewardId: 'tip_giup_do_ban_cung_phong',
+        outcomeText: 'Món quà giải nhiệt buổi chiều khiến cả phòng reo hò phấn khởi, tình cảm anh em phòng 14 người càng thêm gắn kết!',
       },
     ],
   },
@@ -2480,7 +2472,7 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
     category: 'military_duty',
     topic: 'night_guard',
     title: 'Ca gác đêm 01:00 sáng & Duy trì an ninh doanh trại',
-    narrative: 'Đến ca trực lúc 01:00 sáng (gác cầu thang trong nhà đối với Nữ / gác cổng doanh trại đối với Nam), không gian đêm hè yên ắng và cơn buồn ngủ ập đến dồn dập cùng bạn gác chung.',
+    narrative: 'Đến ca trực lúc 01:00 sáng, không gian đêm hè yên ắng và cơn buồn ngủ ập đến dồn dập cùng bạn gác chung.',
     speaker: {
       name: 'Bạn gác chung',
       role: 'Đồng đội trực gác',
@@ -2492,22 +2484,22 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
     choices: [
       {
         id: 'ngd_c1',
-        text: 'Đứng đúng vị trí, trang phục chỉnh tề, bấm ngón tay đi lại tuần tra giữ tỉnh táo cùng bạn gác chung',
+        text: 'Ở đúng vị trí, trang phục chỉnh tề, đi lại tuần tra giữ tỉnh táo cùng bạn gác chung',
         attributeEffects: { reputation: 10, morale: 4, health: -3 },
         tipRewardId: 'tip_chap_hanh_lenh_truc_ban',
         outcomeText: 'Ý chí kiên định và tác phong nghiêm túc giúp ca gác hoàn thành xuất sắc, được chỉ huy đi tuần kiểm tra biểu dương!',
       },
       {
         id: 'ngd_c2',
-        text: 'Ngồi thụp vào góc khuất lấy điện thoại ra lướt mạng chống buồn ngủ',
-        attributeEffects: { reputation: -12, morale: -4, health: -2 },
-        outcomeText: 'Cán bộ đi kiểm tra đột xuất phát hiện ánh sáng màn hình điện thoại trong bóng tối, lập biên bản trừ điểm thi đua!',
+        text: 'Lấy điện thoại ra lướt mạng chống buồn ngủ',
+        attributeEffects: { reputation: -2, morale: 5, health: -2 },
+        outcomeText: 'Chớp mắt đã hết ca gác, đứng dậy bàn giao ca rồi đi về.',
       },
       {
         id: 'ngd_c3',
-        text: 'Rủ bạn trực cùng thay phiên nhau: một người chợp mắt 20 phút rồi đổi lượt',
-        attributeEffects: { reputation: -8, health: 2, morale: -2 },
-        outcomeText: 'Cả hai đều ngủ quên và giật mình tỉnh dậy khi trời gần sáng, may mắn không có sự cố nhưng canh cánh nỗi lo bị phát hiện.',
+        text: 'Nói chuyện linh tinh với bạn gác cùng',
+        attributeEffects: { reputation: 0, health: 2, morale: 5 },
+        outcomeText: 'Hết ca, cả hai thêm thân thiết.',
       },
     ],
   },
@@ -2537,9 +2529,9 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'e_ndt_c2',
-        text: 'Lén giấu điện thoại 1 đêm dưới gối, trùm chăn bật sáng thấp nhất để lướt mạng, sáng hôm sau dậy muộn mệt mỏi',
-        attributeEffects: { health: -15, morale: -5, reputation: -10, money: 0 },
-        outcomeText: 'Trực ban đêm đi kiểm tra đột xuất phát hiện ánh sáng màn hình le lói trong màn, lập biên bản tịch thu điện thoại và phê bình trước đại đội!',
+        text: 'Lén giấu điện thoại, trùm chăn bật sáng thấp nhất để lướt mạng, sáng hôm sau dậy muộn mệt mỏi',
+        attributeEffects: { health: -15, morale: 10, reputation: -10, money: 0 },
+        outcomeText: 'Lâu lâu lướt mạng hóng drama vui quá xá!',
       },
       {
         id: 'e_ndt_c3',
@@ -2577,15 +2569,15 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'e_tg_c2',
-        text: 'Trốn vào góc cầu thang bấm điện thoại và ngủ gật vì nghĩ đêm muộn không ai kiểm tra',
+        text: 'Bấm điện thoại và ngủ gật vì nghĩ đêm muộn không ai kiểm tra',
         attributeEffects: { health: -2, morale: -8, reputation: -15, money: 0 },
-        outcomeText: 'Bị chỉ huy đi tuần bắt quả tang ngủ gật trong ca trực, bị phạt đứng gác tăng cường ca 2h sáng hôm sau!',
+        outcomeText: 'Bị đại đội trưởng đi qua bắt quả tang ngủ gật trong ca trực, bị phạt đứng gác tăng cường ca 2h sáng hôm sau!',
       },
       {
         id: 'e_tg_c3',
-        text: 'Mặc áo ấm, đi tuần tra nhẹ nhàng quanh hành lang tầng 1 và bàn giao ca gác đúng giờ',
+        text: 'Đi kiểm tra một lượt và bàn giao ca gác đúng giờ',
         attributeEffects: { health: 0, morale: 5, reputation: 10, money: 0 },
-        outcomeText: 'Doanh trại an toàn tuyệt đối suốt phiên trực, ca gác sau gửi lời cảm ơn bạn vì sự chu đáo.',
+        outcomeText: 'Hoàn thành đúng nhiệm vụ, ngủ ngon giấc.',
       },
     ],
   },
@@ -2798,7 +2790,7 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
       avatarId: 'huy',
       mood: 'smile',
     },
-    dialogue: 'Suỵt... Khẽ thôi cậu! Nước sôi rồi, chia nhau bằng nắp cặp lồng nhé, mùi thơm nức thế này sợ thầy đi tuần ngửi thấy mất!',
+    dialogue: 'Suỵt... Khẽ thôi cậu! Nước sôi rồi, chia nhau bằng bát nhé, mùi thơm nức thế này sợ thầy đi tuần ngửi thấy mất!',
     backgroundType: 'dorm',
     choices: [
       {
@@ -2908,7 +2900,7 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
     category: 'Tình cảm gia đình',
     topic: 'family_phone_call',
     title: '[TỐI] 30 phút quý giá gọi điện thoại video về cho bố mẹ chia sẻ cuộc sống quân ngũ',
-    narrative: '20:00 tối, trong khung giờ được dùng điện thoại (19:00 - 20:20) trước khi nộp vào tủ niêm phong đại đội, bạn ra góc hành lang lộng gió gọi video về cho gia đình. Nhìn thấy mâm cơm mẹ nấu và nụ cười ấm áp của bố qua màn hình, bao mệt nhọc như tan biến.',
+    narrative: '20:00 tối, trong khung giờ được dùng điện thoại, gọi video về cho gia đình. Nhìn thấy mâm cơm mẹ nấu và nụ cười ấm áp của bố qua màn hình, bao mệt nhọc như tan biến.',
     speaker: {
       name: 'Mẹ',
       role: 'Gia đình yêu thương',
@@ -2959,7 +2951,7 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
     choices: [
       {
         id: 'e_shp_c1',
-        text: 'Chủ động xung phong nhận phần việc khó (cọ rửa sàn nhà vệ sinh) để làm gương cho cả phòng',
+        text: 'Chủ động xung phong nhận phần việc khó để làm gương cho cả phòng',
         attributeEffects: { health: -1, morale: 8, reputation: 12, money: 0 },
         tipRewardId: 'tip_thong_nhat_quy_uoc_phong',
         outcomeText: 'Hành động xông xáo nhận được sự nể phục của cả phòng 14 người, mọi bất đồng nhanh chóng được hóa giải!',
@@ -3014,45 +3006,6 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
         text: 'Lặng lẽ ngồi lắng nghe giai điệu ngọt ngào, cảm nhận sự bình yên hiếm có giữa guồng quay huấn luyện',
         attributeEffects: { health: 2, morale: 9, reputation: 5, money: 0 },
         outcomeText: 'Tâm hồn được xoa dịu thư thái, một buổi tối bình yên tiếp thêm sức mạnh cho những ngày thao trường phía trước.',
-      },
-    ],
-  },
-  {
-    id: 'e_kiem_tra_noi_vu_bat_ngo',
-    phase: 'evening',
-    phaseLabel: 'Tối',
-    category: 'Kỷ luật quân đội',
-    topic: 'surprise_inspection_night',
-    title: '[TỐI] Cán bộ kiểm tra nội vụ đột xuất lúc 21h45 trước giờ đi ngủ',
-    narrative: '21:45, tiếng bước chân giày đinh dõng dạc vang lên ngoài hành lang. Trung đội trưởng cùng kíp trực ban bất ngờ đi kiểm tra nội vụ từng phòng: góc chăn vuông, độ thẳng của hàng dép dưới gầm giường và quần áo phơi trong phòng.',
-    speaker: {
-      name: 'Thầy Trung đội trưởng',
-      role: 'Cán bộ kiểm tra',
-      avatarId: 'commander',
-      mood: 'stern',
-    },
-    dialogue: 'Kiểm tra nội vụ đêm! Tất cả đứng tại vị trí đầu giường! Để tôi xem tối nay phòng nào còn để dép quay mũi lộn xộn!',
-    backgroundType: 'dorm',
-    choices: [
-      {
-        id: 'e_ktn_c1',
-        text: 'Đứng nghiêm trang đầu giường, trước đó đã cẩn thận chỉnh chăn vuông vức và xếp dép thẳng tắp bằng thước kẻ',
-        attributeEffects: { health: 1, morale: 8, reputation: 12, money: 0 },
-        tipRewardId: 'tip_gap_chan_vuong_goc',
-        outcomeText: 'Phòng bạn được thầy chấm điểm Xuất sắc và nêu gương biểu dương toàn đại đội trong buổi chào cờ sáng mai!',
-      },
-      {
-        id: 'e_ktn_c2',
-        text: 'Để dép chỏng chơ một chiếc quay ra một chiếc quay vào, chăn màn bùng nhùng như tổ quạ',
-        attributeEffects: { health: -2, morale: -7, reputation: -10, money: 0 },
-        outcomeText: 'Thầy phê bình gay gắt và yêu cầu cả phòng đứng gấp lại chăn màn đúng 15 phút đến khi vuông vức mới được đi ngủ.',
-      },
-      {
-        id: 'e_ktn_c3',
-        text: 'Nhanh tay nhắc nhở bạn giường tầng trên giấu chiếc mũ cối để sai quy định vào hộc tủ cá nhân',
-        attributeEffects: { health: 0, morale: 6, reputation: 8, money: 0 },
-        tipRewardId: 'tip_thong_nhat_quy_uoc_phong',
-        outcomeText: 'Pha ứng cứu đồng đội kịp thời giúp phòng thoát khỏi một lỗi trừ điểm thi đua trong gang tấc!',
       },
     ],
   },
@@ -3127,74 +3080,10 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'e_mdh_c3',
-        text: 'Hô hào cả phòng chia nhau: người tháo móc gom đồ khô vào tủ, người chằng néo đồ ẩm áp sát tường chắn gió và chốt chặt cửa kính ban công',
+        text: 'Hô hào cả phòng chia nhau: người tháo móc gom đồ khô vào tủ, người đóng kín cửa tránh mưa hắt ướt phòng.',
         attributeEffects: { health: 1, morale: 10, reputation: 10, money: 0 },
         tipRewardId: 'tip_thong_nhat_quy_uoc_phong',
         outcomeText: 'Kế hoạch tác chiến nhanh gọn giúp giải cứu thành công đồ đạc của phòng trước khi cơn mưa trút xuống!',
-      },
-    ],
-  },
-  {
-    id: 'e_mua_qua_vat_cang_tin_toi',
-    phase: 'evening',
-    phaseLabel: 'Tối',
-    category: 'Đời sống sinh viên',
-    topic: 'evening_canteen_treats',
-    title: '[TỐI] Ghé quầy tạp hóa căng-tin mua mì ly, bim bim và nước giải khát',
-    narrative: '19:15 tối, trong khung giờ được nhận lại điện thoại (19:00 - 20:20) và trước giờ tập trung điểm danh 20:30. Quầy tạp hóa căng-tin tấp nập sinh viên ghé mua mì ly đóng hộp, xúc xích tiệt trùng ăn liền, bim bim và nước khoáng đóng chai giải khát.',
-    speaker: {
-      name: 'Linh',
-      role: 'Bạn thân',
-      avatarId: 'linh',
-      mood: 'smile',
-    },
-    dialogue: 'Ghé mua vài ly mì gói đóng hộp với xúc xích tiệt trùng để tối gác đêm hay học bài đói thì úp nước sôi ăn, sẵn mua thêm gói bánh quy giòn nhé!',
-    backgroundType: 'canteen',
-    choices: [
-      {
-        id: 'e_mqv_c1',
-        text: 'Mua một gói bánh quy cùng chai nước trà xanh ướp lạnh, ngồi ghế đá hóng mát tâm sự kỷ niệm quân trường',
-        attributeEffects: { health: 2, morale: 10, reputation: 8, money: -20000 },
-        tipRewardId: 'tip_giu_vung_tinh_than_lac_quan',
-        outcomeText: 'Khoảnh khắc thảnh thơi ấm áp giữa lòng Hòa Lạc, nạp đầy năng lượng tinh thần cho những ngày thao trường.',
-      },
-      {
-        id: 'e_mqv_c2',
-        text: 'Mải ngồi ăn vặt buôn chuyện quên giờ giấc, sát 20:20 mới cuống cuồng chạy về nộp điện thoại',
-        attributeEffects: { health: -1, morale: -4, reputation: -6, money: -20000 },
-        outcomeText: 'Vừa chạy thục mạng vừa lo lắng, bạn bị trưởng phòng nhắc nhở vì nộp điện thoại muộn giờ quy định.',
-      },
-      {
-        id: 'e_mqv_c3',
-        text: 'Mua thêm vài gói xúc xích tiệt trùng, mì ly và sữa hộp mang về phòng tiếp tế cho các bạn trực gác đêm khuya',
-        attributeEffects: { health: 1, morale: 9, reputation: 11, money: -30000 },
-        tipRewardId: 'tip_giup_do_ban_cung_phong',
-        outcomeText: 'Món quà tiếp tế đêm khuya bất ngờ làm các đồng chí trực gác rưng rưng cảm động vì tình đồng đội chu đáo!',
-      },
-    ],
-  },
-    dialogue: 'Ngày mai thao trường bắn súng và bài ném lựu đạn đòi hỏi kỷ luật sắt và tuyệt đối an toàn. Toàn đại đội phải chú ý nghe phổ biến yếu lĩnh và quy tắc trường bắn!',
-    backgroundType: 'courtyard',
-    choices: [
-      {
-        id: 'e_tvn_c1',
-        text: 'Lắng nghe chăm chú, ghi chép lại các lưu ý an toàn thao trường và yếu lĩnh ngắm bắn vào sổ tay cá nhân',
-        attributeEffects: { health: 2, morale: 12, reputation: 10, money: 0 },
-        tipRewardId: 'tip_giu_vung_tinh_than_lac_quan',
-        outcomeText: 'Nắm vững quy tắc an toàn giúp bạn hoàn toàn tự tin và vững tâm lý cho ngày bắn thử nghiệm đạn thật sắp tới!',
-      },
-      {
-        id: 'e_tvn_c2',
-        text: 'Ngồi hàng sau lơ đễnh, thì thào nói chuyện riêng chờ cho nhanh đến 20:20 để nộp điện thoại',
-        attributeEffects: { health: 0, morale: -4, reputation: -6, money: 0 },
-        outcomeText: 'Thầy chính trị viên đi ngang qua phát hiện nói chuyện riêng và yêu cầu đứng lên nhắc lại nội dung an toàn trường bắn.',
-      },
-      {
-        id: 'e_tvn_c3',
-        text: 'Tự tin đại diện trung đội đứng lên phát biểu quyết tâm thi đua bắn giỏi và chấp hành nghiêm kỷ luật thao trường',
-        attributeEffects: { health: 1, morale: 11, reputation: 12, money: 0 },
-        tipRewardId: 'tip_ky_luat_tu_giac_tap_the',
-        outcomeText: 'Tác phong tự tin chuẩn sinh viên Báo chí của bạn khiến cả đại đội bùng nổ tràng pháo tay tán thưởng rực rỡ!',
       },
     ],
   },
@@ -3205,7 +3094,7 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
     category: 'Tình đồng đội',
     topic: 'guard_duty_confessions',
     title: '[TỐI] Ca gác đêm 00:00 - 01:00: Những mẩu chuyện tâm sự thanh xuân dưới ánh trăng',
-    narrative: '00:00 nửa đêm, toàn bộ doanh trại đã chìm vào giấc ngủ sâu. Bạn cùng người bạn cùng phòng đứng trực ca gác cầu thang và sảnh chính. Ánh trăng hè vằng vặc soi bóng những rặng cây, không gian tĩnh mịch mở ra những câu chuyện chân thành.',
+    narrative: '00:00 nửa đêm, toàn bộ doanh trại đã chìm vào giấc ngủ sâu. Bạn cùng người bạn cùng phòng trực ca gác cầu thang và sảnh chính. Ánh trăng hè vằng vặc soi bóng những rặng cây, không gian tĩnh mịch mở ra những câu chuyện chân thành.',
     speaker: {
       name: 'Bạn gác chung',
       role: 'Đồng chí ca gác',
@@ -3224,9 +3113,9 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'e_tsd_c2',
-        text: 'Ngồi bệt xuống bậc cầu thang gục đầu ngủ gật, phó mặc ca gác cho một mình bạn trực',
-        attributeEffects: { health: 1, morale: -5, reputation: -8, money: 0 },
-        outcomeText: 'Tổ cán bộ đi kiểm tra gác đêm bắt gặp cảnh ngủ gật, cả hai bị lập biên bản trừ điểm rèn luyện.',
+        text: 'Ngủ gật, phó mặc ca gác cho một mình bạn trực',
+        attributeEffects: { health: 1, morale: 5, reputation: 0, money: 0 },
+        outcomeText: 'Tỉnh dậy tinh thần thoải mái, đúng lúc đến giờ đổi ca.',
       },
       {
         id: 'e_tsd_c3',
@@ -3234,6 +3123,45 @@ export const EVENING_SITUATIONS: StoryEvent[] = [
         attributeEffects: { health: 0, morale: 7, reputation: 11, money: 0 },
         tipRewardId: 'tip_chap_hanh_lenh_truc_ban',
         outcomeText: 'Ca gác mẫu mực hoàn thành xuất sắc, được chỉ huy kíp trực ban khen ngợi ghi vào sổ giao ban sáng!',
+      },
+    ],
+  },
+  {
+    id: 'e_lau_don_phong_ve_sinh_dem',
+    phase: 'evening',
+    phaseLabel: 'Tối',
+    category: 'Nội vụ phòng',
+    topic: 'cleaning_restroom_night',
+    title: '[TỐI] Tổng vệ sinh nhà tắm khép kín phòng 14 người trước giờ kiểm tra nội vụ 21h00',
+    narrative: '20:50 tối (sau giờ điểm danh giao ban đại đội 20:30 dưới sân chào cờ trở về phòng), các phòng gấp rút chuẩn bị cho kíp trực ban đi kiểm tra nội vụ lúc 21:00. Khu vực nhà tắm khép kín và bồn rửa tay của phòng có dấu hiệu ứ đọng nước xà phòng trơn trượt sau giờ tắm cao điểm chiều.',
+    speaker: {
+      name: 'Trưởng phòng',
+      role: 'Chỉ huy phòng 14 người',
+      avatarId: 'an',
+      mood: 'normal',
+    },
+    dialogue: 'Còn 10 phút nữa là trực ban đi chấm điểm nội vụ phòng ở rồi! Ai nhận phần cọ sàn nhà tắm và lau khô gương kính cùng mình nào?',
+    backgroundType: 'dorm',
+    choices: [
+      {
+        id: 'e_ldp_c1',
+        text: 'Chủ động cầm bàn chải cọ sạch sàn gạch men, thông thoát sàn và lau gương kính sáng bóng khô ráo',
+        attributeEffects: { health: -1, morale: 8, reputation: 12, money: 0 },
+        tipRewardId: 'tip_thong_nhat_quy_uoc_phong',
+        outcomeText: 'Khu vệ sinh sạch bong kin kít, thơm tho sạch sẽ! Thầy kiểm tra chấm phòng bạn điểm 10 tròn trĩnh!',
+      },
+      {
+        id: 'e_ldp_c2',
+        text: 'Đùn đẩy trách nhiệm vì cho rằng mình tắm từ chiều sàn đã khô rồi, không phải việc của mình',
+        attributeEffects: { health: 0, morale: -6, reputation: -10, money: 0 },
+        outcomeText: 'Cả phòng bị trừ điểm nội vụ chung vì sàn nhà tắm còn đọng nước xà phòng, không khí trong phòng trở nên căng thẳng.',
+      },
+      {
+        id: 'e_ldp_c3',
+        text: 'Phân công nhịp nhàng: 2 bạn cọ sàn chà toilet, 2 bạn lau gương bồn rửa và thu gom rác mang xuống chân cầu thang',
+        attributeEffects: { health: 1, morale: 9, reputation: 10, money: 0 },
+        tipRewardId: 'tip_giup_do_ban_cung_phong',
+        outcomeText: 'Sự phối hợp khoa học giúp công việc hoàn thành trong tích tắc, cả phòng thảnh thơi chuẩn bị tắt đèn ngủ lúc 21:30.',
       },
     ],
   },
@@ -3424,7 +3352,7 @@ export const SJC_MANDATORY_SITUATIONS: StoryEvent[] = [
     ],
   },
 
-  // Tình huống 5: Giờ tự học buổi tối & Bình giữ nhiệt SJC (Buổi Tối)
+  // Tình huống 5: Giờ học buổi tối & Bình giữ nhiệt SJC (Buổi Tối)
   {
     id: 'sjc_situation_5_study_thermos',
     phase: 'evening',
@@ -3432,14 +3360,14 @@ export const SJC_MANDATORY_SITUATIONS: StoryEvent[] = [
     category: 'sjc_item_event',
     topic: 'sjc_thermos_evening',
     title: '[TỐI] Giờ học buổi tối & Bình giữ nhiệt SJC',
-    narrative: '19:30 tối, không khí mùa hè oi bức dù 2 chiếc quạt trần quay hết công suất. Cơn buồn ngủ và mệt mỏi sau ngày dài lăn lộn dưới nắng gắt thao trường bắt đầu ập đến trong khi giáo trình quân sự còn nhiều bài ôn tập.',
+    narrative: '19:30 tối, không khí mùa hè oi bức dù 2 chiếc quạt trần quay hết công suất. Cơn buồn ngủ và mệt mỏi sau ngày dài lăn lộn dưới nắng gắt thao trường bắt đầu ập đến.',
     speaker: {
       name: 'Bạn học',
       role: 'Bạn học',
       avatarId: 'roommate',
       mood: 'worried',
     },
-    dialogue: 'Trời oi bức quá, mồ hôi đầm đìa mà mắt cứ díp lại, giáo trình còn tận 2 chương chưa đọc xong...',
+    dialogue: 'Trời oi bức quá, mồ hôi đầm đìa mà mắt cứ díp lại, còn một tiếng nữa mới hết giờ...',
     backgroundType: 'study',
     isSjc: true,
     sjcBadge: '[ĐẶC QUYỀN SJC]',
@@ -3456,7 +3384,7 @@ export const SJC_MANDATORY_SITUATIONS: StoryEvent[] = [
       },
       {
         id: 'sjc_s5_c2',
-        text: 'Cố gục đầu xuống bàn chịu cơn nóng nực và ngủ gật giữa chừng',
+        text: 'Cố gục đầu xuống bàn chịu cơn nóng nực và ngủ gật giữa chừng.',
         attributeEffects: { morale: -6, reputation: -4, health: -3 },
         outcomeText: 'Cơn oi bức làm bạn ngầy ngật ngủ gật, bị giáo viên nhắc nhở vì vi phạm tác phong.',
       },
@@ -3578,7 +3506,7 @@ export const MILITARY_DUTY_SITUATIONS: StoryEvent[] = [
     category: 'military_duty',
     topic: 'area_cleaning',
     title: 'Vệ sinh khu vực đại đội sân trước D2 (Miễn chạy dài)',
-    narrative: '05:30 sáng theo tiếng còi toàn khung D2, tổ của bạn được phân công làm vệ sinh khu vực sân trước khung nhà D2 cùng đại đội (được miễn chạy dài thể dục buổi sáng). Nhà kho rất thiếu hót rác nên phải chủ động chuẩn bị.',
+    narrative: '05:30 sáng theo tiếng còi toàn khung D2, tổ của bạn được phân công làm vệ sinh khu vực sân trước khung nhà D2 cùng đại đội. Nhà kho rất thiếu hót rác nên phải chủ động chuẩn bị.',
     speaker: {
       name: 'Bạn cùng phòng',
       role: 'Tổ trực khu vực',
@@ -3609,6 +3537,46 @@ export const MILITARY_DUTY_SITUATIONS: StoryEvent[] = [
       },
     ],
   },
+  // 3. Trực ban nhà ăn đại đội (Chiều)
+  {
+    id: 'truc_ban_nha_an_chieu',
+    phase: 'afternoon',
+    phaseLabel: 'Chiều',
+    category: 'military_duty',
+    topic: 'mess_hall_duty',
+    title: 'Trực ban nhà ăn đại đội & Chuẩn bị mâm cơm 6 người',
+    narrative: '16:30 chiều, tiểu đội bạn được phân công làm nhiệm vụ trực nhật nhà ăn đại đội: lau khô bàn ăn inox, chia thức ăn thành phần và bưng cơm canh lên các bàn trước khi đại đội hành quân vào ăn.',
+    speaker: {
+      name: 'Tiểu đội trưởng',
+      role: 'Trưởng kíp trực ban',
+      avatarId: 'commander',
+      mood: 'normal',
+    },
+    dialogue: 'Chia đều thức ăn các mâm nhé, sắp đến giờ ăn rồi!',
+    backgroundType: 'canteen',
+    choices: [
+      {
+        id: 'tbna_c1',
+        text: 'Xếp bàn ăn ngay ngắn và chia đều từng phần thức ăn nóng sốt',
+        attributeEffects: { reputation: 8, morale: 5, health: -2 },
+        tipRewardId: 'tip_ky_luat_tu_giac_tap_the',
+        outcomeText: 'Mâm cơm tươm tất chuẩn bị chu đáo khiến cả đại đội tấm tắc khen ngợi, kíp trực ban được thầy quản lý nhà ăn biểu dương!',
+      },
+      {
+        id: 'tbna_c2',
+        text: 'Chia thức ăn qua loa, đĩa ít đĩa nhiều.',
+        attributeEffects: { reputation: -6, morale: -4 },
+        outcomeText: 'Đồng đội phàn nàn vì đũa ướt dính, tiểu đội bị nhắc nhở phải ở lại dọn dẹp vệ sinh nhà ăn sau bữa cơm.',
+      },
+      {
+        id: 'tbna_c3',
+        text: 'Nhanh nhẹn phụ các cô cấp dưỡng bê nồi canh lớn và bưng khay cơm phụ các dãy bàn bên cạnh',
+        attributeEffects: { reputation: 6, morale: 8, health: 1 },
+        tipRewardId: 'tip_giup_do_ban_cung_phong',
+        outcomeText: 'Sự nhiệt tình xông xáo giúp công việc xong sớm, các cô cấp dưỡng quý mến thưởng thêm cho các bạn phụ bếp cốc chanh leo mát lạnh nhé!',
+      },
+    ],
+  },
   // 4. Gác đêm / Gác cổng (Tối)
   {
     id: 'night_guard_duty',
@@ -3617,7 +3585,7 @@ export const MILITARY_DUTY_SITUATIONS: StoryEvent[] = [
     category: 'military_duty',
     topic: 'night_guard',
     title: 'Ca gác đêm 01:00 sáng & Duy trì an ninh doanh trại',
-    narrative: 'Đến ca trực lúc 01:00 sáng (gác cầu thang trong nhà đối với Nữ / gác cổng doanh trại đối với Nam), không gian đêm hè yên ắng và cơn buồn ngủ ập đến dồn dập cùng bạn gác chung.',
+    narrative: 'Đến ca trực lúc 01:00 sáng, không gian đêm hè yên ắng và cơn buồn ngủ ập đến dồn dập cùng bạn gác chung.',
     speaker: {
       name: 'Bạn gác chung',
       role: 'Đồng đội trực gác',
@@ -3629,16 +3597,16 @@ export const MILITARY_DUTY_SITUATIONS: StoryEvent[] = [
     choices: [
       {
         id: 'ngd_c1',
-        text: 'Đứng đúng vị trí, trang phục chỉnh tề, bấm ngón tay đi lại tuần tra giữ tỉnh táo cùng bạn gác chung',
+        text: 'Ở đúng vị trí, tập trung cao độ.',
         attributeEffects: { reputation: 10, morale: 4, health: -3 },
         tipRewardId: 'tip_chap_hanh_lenh_truc_ban',
         outcomeText: 'Ý chí kiên định và tác phong nghiêm túc giúp ca gác hoàn thành xuất sắc, được chỉ huy đi tuần kiểm tra biểu dương!',
       },
       {
         id: 'ngd_c2',
-        text: 'Ngồi thụp vào góc khuất lấy điện thoại ra lướt mạng chống buồn ngủ',
-        attributeEffects: { reputation: -12, morale: -4, health: -2 },
-        outcomeText: 'Cán bộ đi kiểm tra đột xuất phát hiện ánh sáng màn hình điện thoại trong bóng tối, lập biên bản trừ điểm thi đua!',
+        text: 'Lấy điện thoại ra lướt mạng chống buồn ngủ',
+        attributeEffects: { reputation: -1O, morale: 4, health: -2 },
+        outcomeText: 'Chơi điện thoại đêm tuy vui nhưng đau mắt!',
       },
       {
         id: 'ngd_c3',
@@ -4007,7 +3975,7 @@ export const STANDARD_RANDOM_POPUP_EVENTS: RandomPopupEvent[] = [
   {
     id: 'rnd_sap_tran_nhua',
     title: 'Sự cố nhà vệ sinh!',
-    description: 'Đường ống nước nhà vệ sinh tầng trên bị rò rỉ làm rơi một mảng trần nhựa, cả phòng phải nháo nhào phụ dọn nước tràn!',
+    description: 'Đường ống nước nhà vệ sinh tầng trên bị rò rỉ làm sập một mảng trần nhựa, cả phòng phải nháo nhào phụ dọn nước tràn!',
     attributeEffects: { health: -6, morale: -6 },
     icon: '🛠️',
   },
@@ -4021,14 +3989,14 @@ export const STANDARD_RANDOM_POPUP_EVENTS: RandomPopupEvent[] = [
   {
     id: 'rnd_nham_dau_goi',
     title: 'Tắm nhầm dầu gội!',
-    description: 'Vội vàng đi tắm lúc trời chập choạng tối, bạn lấy nhầm chai dầu gội đầu thoa khắp người làm sữa tắm!',
+    description: 'Vội vàng đi tắm lúc trời chập choạng tối, bạn lấy nhầm chai dầu gội đầu (Shampoo) thoa khắp người làm sữa tắm!',
     attributeEffects: { morale: -5 },
     icon: '🧴',
   },
   {
     id: 'rnd_gio_bay_moc_ao',
     title: 'Gió lốc đồi Hòa Lạc!',
-    description: 'Cơn gió đồi chiều thổi mạnh bất ngờ hất tung 2 chiếc móc áo cùng đôi tất phơi trên dây rơi xuống tầng dưới!',
+    description: 'Cơn gió đồi chiều thổi mạnh bất ngờ hất tung 2 chiếc móc áo cùng đôi tất phơi trên dây rơi xuống mái che tầng dưới!',
     attributeEffects: { morale: -4, reputation: -2 },
     icon: '💨',
   },
