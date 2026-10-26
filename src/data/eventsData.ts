@@ -3605,7 +3605,7 @@ export const MILITARY_DUTY_SITUATIONS: StoryEvent[] = [
       {
         id: 'ngd_c2',
         text: 'Lấy điện thoại ra lướt mạng chống buồn ngủ',
-        attributeEffects: { reputation: -1O, morale: 4, health: -2 },
+        attributeEffects: { reputation: -10, morale: 4, health: -2 },
         outcomeText: 'Chơi điện thoại đêm tuy vui nhưng đau mắt!',
       },
       {
